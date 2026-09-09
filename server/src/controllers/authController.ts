@@ -10,7 +10,14 @@ import { Role } from '@prisma/client';
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
-  phone: z.string().min(10, 'Phone must be at least 10 digits').optional(),
+  phone: z.preprocess(
+    (value) => {
+      if (typeof value !== 'string') return value;
+      const digits = value.replace(/\D/g, '');
+      return digits || undefined;
+    },
+    z.string().min(10, 'Phone must contain at least 10 digits').max(15, 'Phone number is too long').optional()
+  ),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   confirmPassword: z.string().min(6),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -24,7 +31,13 @@ const loginSchema = z.object({
 });
 
 export async function register(req: Request, res: Response) {
-  const validated = registerSchema.parse(req.body);
+  const result = registerSchema.safeParse(req.body);
+  if (!result.success) {
+    const messages = result.error.errors.map((error) => `${error.path.join('.')}: ${error.message}`).join(', ');
+    return sendError(res, `Validation error: ${messages}`, 400, result.error.errors);
+  }
+
+  const validated = result.data;
 
   const existing = await prisma.user.findUnique({
     where: { email: validated.email.toLowerCase() },
