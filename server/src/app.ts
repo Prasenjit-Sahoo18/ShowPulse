@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import fs from 'node:fs';
+import path from 'node:path';
 import { errorHandler } from './middleware/errorHandler.js';
 import { sendSuccess, sendError } from './utils/apiResponse.js';
 
@@ -15,6 +17,7 @@ import couponRoutes from './routes/couponRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
 export const app = express();
+const clientDistPath = path.resolve(process.cwd(), 'client/dist');
 
 // Middleware
 app.use(cors({
@@ -54,8 +57,14 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/coupons', couponRoutes);
 app.use('/api/admin', adminRoutes);
 
+// Serve the compiled web client when the API and frontend share one service.
+app.use(express.static(clientDistPath));
+
 // Catch 404
 app.use('*', (req, res) => {
+  if (req.method === 'GET' && !req.originalUrl.startsWith('/api') && fs.existsSync(path.join(clientDistPath, 'index.html'))) {
+    return res.sendFile(path.join(clientDistPath, 'index.html'));
+  }
   return sendError(res, `Endpoint ${req.method} ${req.originalUrl} not found`, 404);
 });
 

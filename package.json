@@ -12,6 +12,7 @@
     "dev:server": "npm run dev -w server",
     "dev:client": "npm run dev -w client",
     "build": "npm run build -w server && npm run build -w client",
+    "start": "node server/dist/server.js",
     "build:server": "npm run build -w server",
     "build:client": "npm run build -w client",
     "test:server": "npm run test -w server",
