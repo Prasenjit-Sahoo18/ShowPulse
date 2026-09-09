@@ -1,0 +1,315 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum SeatType {
+  RECLINER
+  PREMIUM
+  EXECUTIVE
+  NORMAL
+}
+
+enum SeatStatus {
+  AVAILABLE
+  LOCKED
+  BOOKED
+}
+
+enum BookingStatus {
+  CONFIRMED
+  CANCELLED
+  PENDING
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESSFUL
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  UPI
+  CREDIT_CARD
+  DEBIT_CARD
+  NET_BANKING
+  WALLET
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FLAT
+}
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  phone        String?
+  passwordHash String
+  role         Role      @default(USER)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  bookings     Booking[]
+  reviews      Review[]
+  lockedSeats  ShowSeat[] @relation("UserLockedSeats")
+
+  @@index([email])
+}
+
+model City {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  state     String
+  slug      String    @unique
+  isPopular Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  theatres  Theatre[]
+
+  @@index([slug])
+}
+
+model Genre {
+  id        String       @id @default(uuid())
+  name      String       @unique
+  slug      String       @unique
+  movies    MovieGenre[]
+
+  @@index([slug])
+}
+
+model Movie {
+  id           String       @id @default(uuid())
+  title        String
+  slug         String       @unique
+  description  String
+  posterUrl    String
+  backdropUrl  String
+  trailerUrl   String?
+  duration     Int          // minutes
+  releaseDate  DateTime
+  rating       Float        @default(0.0)
+  voteCount    Int          @default(0)
+  language     String       // e.g. "English", "Hindi", "Odia", "Telugu"
+  formats      String[]     // ["2D", "3D", "IMAX 3D", "4DX"]
+  director     String
+  cast         String[]     // Actor names
+  isFeatured   Boolean      @default(false)
+  isNowShowing Boolean      @default(true)
+  isComingSoon Boolean      @default(false)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  genres       MovieGenre[]
+  shows        Show[]
+  reviews      Review[]
+
+  @@index([slug])
+  @@index([isNowShowing])
+  @@index([isFeatured])
+}
+
+model MovieGenre {
+  id        String   @id @default(uuid())
+  movieId   String
+  genreId   String
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  genre     Genre    @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+  @@unique([movieId, genreId])
+  @@index([movieId])
+  @@index([genreId])
+}
+
+model Theatre {
+  id         String   @id @default(uuid())
+  name       String
+  cityId     String
+  location   String   // e.g., "Patia", "Saheed Nagar", "Bandra"
+  address    String
+  facilities String[] // ["Dolby Atmos", "4K Projection", "Food Court", "Parking", "Wheelchair Accessible"]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  city       City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  screens    Screen[]
+  shows      Show[]
+
+  @@index([cityId])
+}
+
+model Screen {
+  id         String   @id @default(uuid())
+  theatreId  String
+  name       String   // e.g., "Audi 1", "IMAX Screen"
+  screenType String   // "IMAX", "4DX", "Dolby Cinema", "Standard"
+  totalSeats Int
+  rows       Int
+  cols       Int
+  createdAt  DateTime @default(now())
+
+  theatre    Theatre  @relation(fields: [theatreId], references: [id], onDelete: Cascade)
+  seats      Seat[]
+  shows      Show[]
+
+  @@index([theatreId])
+}
+
+model Seat {
+  id          String        @id @default(uuid())
+  screenId    String
+  row         String        // "A", "B", "C" ...
+  number      Int           // 1, 2, 3 ...
+  seatType    SeatType      @default(NORMAL)
+  basePrice   Float
+  screen      Screen        @relation(fields: [screenId], references: [id], onDelete: Cascade)
+  showSeats   ShowSeat[]
+  bookingSeats BookingSeat[]
+
+  @@unique([screenId, row, number])
+  @@index([screenId])
+}
+
+model Show {
+  id                  String     @id @default(uuid())
+  movieId             String
+  theatreId           String
+  screenId            String
+  date                DateTime   // Date of show (YYYY-MM-DD)
+  startTime           String     // "10:00 AM", "01:30 PM", "07:30 PM"
+  endTime             String     // "12:45 PM", "04:15 PM", "10:15 PM"
+  basePriceMultiplier Float      @default(1.0)
+  status              String     @default("ACTIVE") // ACTIVE, CANCELLED
+  createdAt           DateTime   @default(now())
+
+  movie               Movie      @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  theatre             Theatre    @relation(fields: [theatreId], references: [id], onDelete: Cascade)
+  screen              Screen     @relation(fields: [screenId], references: [id], onDelete: Cascade)
+  showSeats           ShowSeat[]
+  bookings            Booking[]
+
+  @@index([movieId])
+  @@index([theatreId])
+  @@index([date])
+}
+
+model ShowSeat {
+  id              String        @id @default(uuid())
+  showId          String
+  seatId          String
+  status          SeatStatus    @default(AVAILABLE)
+  lockedUntil     DateTime?
+  lockedByUserId  String?
+  price           Float
+
+  show            Show          @relation(fields: [showId], references: [id], onDelete: Cascade)
+  seat            Seat          @relation(fields: [seatId], references: [id], onDelete: Cascade)
+  lockedByUser    User?         @relation("UserLockedSeats", fields: [lockedByUserId], references: [id], onDelete: SetNull)
+  bookingSeats    BookingSeat[]
+
+  @@unique([showId, seatId])
+  @@index([showId])
+  @@index([status])
+}
+
+model Booking {
+  id               String        @id @default(uuid())
+  bookingReference String        @unique // e.g. "CP-2026-98124"
+  userId           String
+  showId           String
+  totalTickets     Int
+  ticketPrice      Float         // Subtotal
+  convenienceFee   Float
+  discount         Float         @default(0.0)
+  totalAmount      Float
+  status           BookingStatus @default(CONFIRMED)
+  qrCodeData       String?       @db.Text
+  couponId         String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  show             Show          @relation(fields: [showId], references: [id], onDelete: Cascade)
+  coupon           Coupon?       @relation(fields: [couponId], references: [id], onDelete: SetNull)
+  bookingSeats     BookingSeat[]
+  payment          Payment?
+
+  @@index([userId])
+  @@index([showId])
+  @@index([bookingReference])
+}
+
+model BookingSeat {
+  id          String   @id @default(uuid())
+  bookingId   String
+  showSeatId  String
+  seatId      String
+  price       Float
+
+  booking     Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  showSeat    ShowSeat @relation(fields: [showSeatId], references: [id], onDelete: Cascade)
+  seat        Seat     @relation(fields: [seatId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+}
+
+model Payment {
+  id               String        @id @default(uuid())
+  bookingId        String        @unique
+  transactionId    String        @unique
+  paymentMethod    PaymentMethod
+  amount           Float
+  status           PaymentStatus @default(SUCCESSFUL)
+  providerResponse Json?
+  createdAt        DateTime      @default(now())
+
+  booking          Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+  @@index([transactionId])
+}
+
+model Coupon {
+  id            String       @id @default(uuid())
+  code          String       @unique
+  description   String
+  discountType  DiscountType @default(FLAT)
+  discountValue Float
+  minAmount     Float        @default(0.0)
+  maxDiscount   Float?
+  validTill     DateTime
+  isActive      Boolean      @default(true)
+  usedCount     Int          @default(0)
+  createdAt     DateTime     @default(now())
+
+  bookings      Booking[]
+
+  @@index([code])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  userId    String
+  movieId   String
+  rating    Float
+  comment   String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId])
+  @@index([movieId])
+}

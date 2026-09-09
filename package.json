@@ -1,0 +1,36 @@
+{
+  "name": "ticket-booking-app",
+  "version": "1.0.0",
+  "description": "CinePulse - Production-Grade Entertainment Ticket Booking Platform",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n \"SERVER,CLIENT\" -c \"cyan,magenta\" \"npm run dev -w server\" \"npm run dev -w client\"",
+    "dev:server": "npm run dev -w server",
+    "dev:client": "npm run dev -w client",
+    "build": "npm run build -w server && npm run build -w client",
+    "build:server": "npm run build -w server",
+    "build:client": "npm run build -w client",
+    "test:server": "npm run test -w server",
+    "seed": "npm run prisma:seed -w server",
+    "db:push": "npm run prisma:push -w server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "ticket-booking",
+    "cinema",
+    "react",
+    "express",
+    "typescript",
+    "prisma",
+    "postgresql",
+    "react-native-ready"
+  ],
+  "author": "CinePulse Team",
+  "license": "MIT"
+}
