@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: showpulse
+    name: cinepulse
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && npx prisma db push --schema=server/prisma/schema.prisma && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
     autoDeploy: true
@@ -15,9 +15,11 @@ services:
       - key: PORT
         value: 10000
       - key: CLIENT_URL
-        value: https://showpulse.onrender.com
+        value: https://cinepulse-gw3d.onrender.com
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: cinepulse-db
+          property: connectionString
       - key: JWT_SECRET
         sync: false
       - key: JWT_EXPIRES_IN
@@ -28,3 +30,9 @@ services:
         value: "8"
       - key: DEFAULT_CITY
         value: Bhubaneswar
+
+databases:
+  - name: cinepulse-db
+    plan: free
+    databaseName: cinepulse
+    user: cinepulse

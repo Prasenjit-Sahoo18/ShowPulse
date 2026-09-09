@@ -194,10 +194,9 @@ Or run individually:
 ### 5. Deploy to Render
 This repository includes `render.yaml` for a single Render Node web service. It serves the built React client and Express API together, which keeps the frontend `/api` requests on the same origin.
 
-1. Create or connect a PostgreSQL database in Render.
-2. Deploy this repository as a **Blueprint** so Render reads `render.yaml` (or configure the service as a Node web service with build command `npm install && npm run build` and start command `npm start`).
-3. Set `DATABASE_URL` to the Render PostgreSQL internal connection string and set a strong `JWT_SECRET` in the service environment.
-4. After the first deploy, run `npm run db:push` and `npm run seed` from a shell connected to the service, or run the equivalent Prisma commands against the Render database.
+1. Deploy this repository as a **Blueprint** so Render reads `render.yaml`. The Blueprint creates the web service and PostgreSQL database together.
+2. Set a strong `JWT_SECRET` in the web service environment. `DATABASE_URL` is wired automatically from the provisioned database.
+3. After the first deploy, run `npm run seed` from the project shell or run `npm run prisma:seed -w server` against the Render database to load the movies, theatres, shows, and coupons.
 
 The health check is available at `/api/health`. Do not deploy this app as a Render Static Site because that does not run the Express API.
 
