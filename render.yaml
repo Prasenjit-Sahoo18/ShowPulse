@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: showpulse
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 22.14.0
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CLIENT_URL
+        value: https://showpulse.onrender.com
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: MOCK_PAYMENT_ENABLED
+        value: "true"
+      - key: CONVENIENCE_FEE_PERCENT
+        value: "8"
+      - key: DEFAULT_CITY
+        value: Bhubaneswar
