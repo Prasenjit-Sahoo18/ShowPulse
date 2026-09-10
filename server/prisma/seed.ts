@@ -6,6 +6,12 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Starting CinePulse database seed...');
 
+  const existingMovieCount = await prisma.movie.count();
+  if (existingMovieCount > 0) {
+    console.log(`ℹ️ Database already contains ${existingMovieCount} movies. Skipping destructive seed.`);
+    return;
+  }
+
   // Clear existing data cleanly in reverse dependency order
   await prisma.payment.deleteMany();
   await prisma.bookingSeat.deleteMany();
