@@ -192,7 +192,7 @@ Or run individually:
 - **Frontend Web**: `cd client && npm run dev` → `http://localhost:5173`
 
 ### 5. Deploy to Render
-This repository includes `render.yaml` for a single Render Node web service. It serves the built React client and Express API together, which keeps the frontend `/api` requests on the same origin.
+This repository includes `render.yaml` for a single Render Node web service. It serves the built React client and Express API together, which keeps the frontend `/api` requests on the same origin. The Render build explicitly installs development dependencies because TypeScript, Prisma CLI, and Node type declarations are required during compilation.
 
 1. Deploy this repository as a **Blueprint** so Render reads `render.yaml`. The Blueprint creates the web service and PostgreSQL database together.
 2. Set a strong `JWT_SECRET` in the web service environment. `DATABASE_URL` is wired automatically from the provisioned database.

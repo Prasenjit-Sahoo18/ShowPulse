@@ -3,7 +3,7 @@ services:
     name: cinepulse
     runtime: node
     plan: free
-    buildCommand: npm install && npx prisma db push --schema=server/prisma/schema.prisma && npm run build
+    buildCommand: npm install --include=dev && npx prisma db push --schema=server/prisma/schema.prisma && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
     autoDeploy: true
