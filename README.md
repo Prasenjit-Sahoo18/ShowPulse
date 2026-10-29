@@ -1,393 +1,795 @@
+# 🎬 ShowPulse — Every Seat Has a Story
 
-# 🎬 CinePulse — Next-Gen Entertainment & Movie Ticket Booking Platform
-https://cinepulse-7ajb.onrender.com
+<p align="center">
+  <strong>Discover movies. Reserve your seats. Experience the magic.</strong>
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-violet.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-18.3-61dafb.svg)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.2-646cff.svg)](https://vitejs.dev/)
-[![Express](https://img.shields.io/badge/Express-4.21-lightgrey.svg)](https://expressjs.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-336791.svg)](https://www.postgresql.org/)
-[![Prisma ORM](https://img.shields.io/badge/Prisma-6.4-2D3748.svg)](https://www.prisma.io/)
-[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-38bdf8.svg)](https://tailwindcss.com/)
+<p align="center">
+  A full-stack cinema discovery and ticket-booking platform designed to deliver a seamless movie-going experience across web and mobile.
+</p>
 
-> **CinePulse** is a production-grade, full-stack entertainment ticket booking platform inspired by BookMyShow, featuring an original brand identity, premium dark/light UI design, real-time cinema seat reservations with atomic concurrency locking, digital QR entrance tickets, admin analytics dashboards, and an API architecture decoupled for consumption by web and React Native mobile applications.
+<p align="center">
+  <a href="https://github.com/Prasenjit-Sahoo18/ShowPulse">GitHub Repository</a> •
+  <a href="https://cinepulse-7ajb.onrender.com">Live Demo</a> •
+  <a href="#-getting-started">Get Started</a>
+</p>
 
----
-
-## 🌟 Key Features
-
-### 🍿 Customer Experience
-- **City & Location Selector**: Switch between 8 major metropolitan entertainment hubs (*Bhubaneswar*, *Mumbai*, *Delhi-NCR*, *Bengaluru*, *Hyderabad*, *Chennai*, *Kolkata*, *Pune*). All movie listings, theatres, and showtimes dynamically filter by city.
-- **Global Search & Debounced Suggestions**: Real-time search across titles, directors, and genres with instant popup previews.
-- **Movie Catalog & Multi-Faceted Filters**: Filter by genre chips, languages (*English*, *Hindi*, *Odia*, *Telugu*), and cinema formats (*2D*, *3D*, *IMAX 3D*, *4DX*), sorted by popularity or critic ratings.
-- **Cinematic Movie Showcase**: High-res posters, atmospheric backdrops, embedded official YouTube trailers, director & cast credits, and verified audience reviews.
-- **Interactive Auditorium Seat Layout**:
-  - Realistic curved cinema screen projection SVG indicator.
-  - Multi-tiered seat categories: **Recliner (₹400-₹450)**, **Premium (₹300-₹320)**, **Executive (₹220-₹250)**, and **Normal (₹160-₹180)**.
-  - Visual seat states: *Available*, *Selected*, *Booked*, and *Locked*.
-  - Prevents selection of already-booked or reserved seats.
-- **Atomic 10-Minute Hold Lock**: Database transactions (`prisma.$transaction`) atomically reserve selected seats with a live 10-minute hold countdown timer to eliminate double bookings and race conditions.
-- **Dynamic Cart & Offers**: Real-time breakdown of ticket subtotal, convenience fee (8%), and promo code deductions (*WELCOME50*, *MOVIE100*, *WEEKEND20*, etc.).
-- **Mock Payment Gateway Sandbox**: Support for UPI, Credit Card, Debit Card, Net Banking, and Wallets with test failure toggles to simulate real gateway exception recovery.
-- **Digital QR Entry Pass**: Automatically generates scannable QR verification passes with perforated ticket designs, print/PDF saving, and turnstile verification data.
-- **My Bookings & Cancellation**: View active and historical bookings, display digital tickets, or cancel with instant seat release and automated refund processing.
-- **User Profile Management**: Update personal info and change passwords securely.
-- **Dark / Light Theme Toggle**: Sleek midnight theme with electric violet/fuchsia accents or pearl-white mode, persisted locally.
-
-### 🛡️ Enterprise Admin Dashboard
-- **Analytics & KPIs**: Real-time metrics for total gross revenue, ticket volume, today's sales, active auditorium occupancy rate, and dynamic 7-day revenue trend bar charts.
-- **Movie Catalogue Management**: Full CRUD capabilities to publish movies, update synopsis, assign formats, and configure cast/crew.
-- **Theatres & Screens**: Register new cinema properties, manage audi screens, and configure seat configurations.
-- **Show Scheduling**: Schedule showtime slots with custom date, time, and dynamic price multipliers.
-- **Bookings & Auditing**: Search transactions by reference or customer email, review status, and trigger refunds.
-- **User Administration**: Inspect registered customers and toggle account statuses.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/React_Native-Mobile-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React Native" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+</p>
 
 ---
 
-## 🛠️ Technology Stack
+## 📌 Table of Contents
 
-| Layer | Technologies |
-| :--- | :--- |
-| **Frontend Web** | React 18, Vite, TypeScript, Tailwind CSS, React Router v6, Axios, Lucide React, Canvas Confetti |
-| **Backend API** | Node.js, Express.js, TypeScript, RESTful JSON APIs, Zod, QRCode |
-| **Database & ORM**| PostgreSQL 18, Prisma ORM (with ACID Interactive Transactions & Foreign Keys) |
-| **Authentication**| JWT (JSON Web Tokens), bcryptjs password hashing |
-| **Testing** | Vitest, Supertest (18 automated integration tests) |
+- [About the Project](#-about-the-project)
+- [What Makes ShowPulse Different?](#-what-makes-showpulse-different)
+- [Features](#-features)
+- [React Native Mobile Experience](#-react-native-mobile-experience)
+- [Booking Workflow](#-booking-workflow)
+- [Technology Stack](#-technology-stack)
+- [System Architecture](#-system-architecture)
+- [Database Design](#-database-design)
+- [Getting Started](#-getting-started)
+- [Environment Variables](#-environment-variables)
+- [Available Scripts](#-available-scripts)
+- [API Overview](#-api-overview)
+- [Security and Reliability](#-security-and-reliability)
+- [Testing](#-testing)
+- [Deployment](#-deployment)
+- [Project Structure](#-project-structure)
+- [Future Roadmap](#-future-roadmap)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Connect](#-connect)
 
 ---
 
-## 📁 Project Architecture & Monorepo Structure
+## 🎥 About the Project
 
+**ShowPulse** is a full-stack cinema discovery and ticket-booking platform built to simplify the journey from finding a movie to receiving a digital ticket.
+
+The project combines a modern web interface, a backend REST API, relational data management, and React Native mobile development into a cinema-booking ecosystem.
+
+Users can explore movies, discover theatre showtimes, select seats, manage reservations, and access digital ticket information. Administrators have dedicated tools for managing movies, theatres, screenings, bookings, and platform activity.
+
+The project focuses on more than UI development. It explores practical backend engineering challenges such as authentication, reservation expiration, database transactions, role-based access, and booking consistency.
+
+### 🎯 Project Vision
+
+Build a cinema platform that connects movie discovery, secure booking workflows, and cross-platform experiences through a maintainable architecture.
+
+**Project links**
+
+- Repository: [ShowPulse on GitHub](https://github.com/Prasenjit-Sahoo18/ShowPulse)
+- Web demo: [CinePulse](https://cinepulse-7ajb.onrender.com)
+
+> **Naming note:** The repository is named ShowPulse, while the existing application/deployment documentation uses CinePulse. Update the application branding and links consistently if ShowPulse is intended to be the final product name.
+
+---
+
+## 🌟 What Makes ShowPulse Different?
+
+### 1. Booking is more than selecting a seat
+
+A cinema-booking system must account for shared seat availability, temporary reservations, payment outcomes, and booking confirmation. ShowPulse is designed around these connected workflows rather than treating each screen as an isolated feature.
+
+### 2. Web and mobile development
+
+React powers the web experience, while React Native provides the mobile development technology for extending the platform to mobile devices. A shared REST API can support both clients without requiring the booking logic to be duplicated.
+
+### 3. A complete booking lifecycle
+
+The platform's documented workflow covers movie discovery, seat selection, temporary holds, checkout, simulated payment, booking history, digital tickets, and cancellation workflows.
+
+### 4. An administrator experience
+
+The platform also includes administrative workflows for managing the cinema catalogue, scheduling screenings, monitoring bookings, and reviewing operational metrics.
+
+### 5. A practical full-stack engineering project
+
+The combination of React, React Native, Express, TypeScript, PostgreSQL, Prisma, and automated API testing provides an opportunity to explore both user-facing development and backend reliability.
+
+---
+
+## ✨ Features
+
+### 🍿 Movie Discovery
+
+- Browse a catalogue of movies with posters, backdrops, descriptions, genres, cast, and trailers.
+- Search and filter movies.
+- Explore movie showtimes by city and theatre.
+- View movie details, reviews, and ratings.
+- Browse listings for supported cinema locations.
+
+### 🪑 Interactive Seat Booking
+
+- Visual auditorium seating layouts.
+- Different seat categories and pricing.
+- Available, selected, temporarily locked, and booked seat states.
+- Temporary seat reservations with a countdown.
+- Server-side validation of seat availability.
+- Transaction-based booking operations.
+
+### 🎟️ Booking and Checkout
+
+- Review selected seats and ticket totals.
+- Calculate applicable convenience fees.
+- Validate promotional coupons.
+- Simulate payment outcomes.
+- Generate booking references.
+- View booking history.
+- Cancel eligible reservations through the booking workflow.
+
+### 📱 Digital Tickets
+
+- QR-code ticket generation.
+- Booking references and screening details.
+- Digital ticket viewing.
+- Ticket verification workflow support.
+
+### 👤 User Authentication
+
+- Registration and login.
+- JWT-based authentication.
+- Password hashing.
+- Protected customer routes.
+- Profile and password management.
+- Role-based access for administrators.
+
+### 🛠️ Admin Dashboard
+
+- Movie catalogue management.
+- Theatre and screen management.
+- Showtime scheduling.
+- Seat inventory configuration.
+- Booking search and management.
+- Dashboard statistics and revenue summaries.
+- Customer account management.
+
+### 🎨 User Experience
+
+- Responsive web interface.
+- Dark and light themes.
+- Reusable UI components.
+- Search suggestions and interactive countdowns.
+- Loading states and booking feedback.
+
+---
+
+## 📱 React Native Mobile Experience
+
+React Native is part of ShowPulse's mobile development technology stack, enabling the platform to extend beyond the browser to native Android and iOS experiences.
+
+The mobile client can use the same Express REST API as the web application, allowing both clients to work with a consistent backend and data model.
+
+### Mobile development goals
+
+- **Cross-platform development:** Build mobile interfaces for Android and iOS using React Native.
+- **Movie discovery:** Provide a mobile-friendly movie catalogue and showtime browsing experience.
+- **Seat selection:** Adapt the cinema seating experience to smaller screens.
+- **Booking management:** Support viewing reservations and digital ticket information.
+- **API integration:** Communicate with the backend through HTTP and JSON.
+- **Consistent experience:** Maintain common booking rules and business logic across web and mobile clients.
+
+### Shared backend architecture
+
+```text
+             ┌─────────────────────┐
+             │   Express REST API  │
+             └──────────┬──────────┘
+                        │
+             ┌──────────┴──────────┐
+             │                     │
+    ┌────────▼────────┐  ┌─────────▼────────┐
+    │   React Web     │  │ React Native App │
+    │    Frontend     │  │   Mobile Client  │
+    └─────────────────┘  └──────────────────┘
 ```
-ticket-booking-app/
-├── package.json                   # Root workspace scripts (dev, build, seed, test)
-├── .env.example                   # Environment configuration template
-├── README.md                      # Complete system & React Native API documentation
-│
-├── server/                        # Express + TypeScript + Prisma REST API
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── vitest.config.ts
-│   ├── prisma/
-│   │   ├── schema.prisma          # PostgreSQL relational schema
-│   │   └── seed.ts                # Realistic seed: 16 movies, 10 theatres, 120 shows, seats, coupons, users
-│   ├── src/
-│   │   ├── config/                # Environment variables, database client
-│   │   ├── controllers/           # Auth, Movie, Theatre, Show, Booking, Payment, Coupon, Admin
-│   │   ├── middleware/            # JWT auth, Admin guard, central error handler
-│   │   ├── routes/                # Modular REST route definitions
-│   │   ├── utils/                 # Standard ApiResponse, JWT signer, QR code generator
-│   │   ├── app.ts                 # Express configuration and middleware
-│   │   └── server.ts              # Server bootstrapper on port 5000
-│   └── tests/
-│       └── api.test.ts            # Automated Vitest test suite (18 tests passing)
-│
-└── client/                        # Vite + React + TypeScript + Tailwind CSS
-    ├── package.json
-    ├── vite.config.ts
-    ├── tailwind.config.js
-    ├── src/
-    │   ├── assets/                # Logos and icons
-    │   ├── components/
-    │   │   ├── common/            # Navbar, Footer, Modal, Button, Badge, Skeleton, CityModal
-    │   │   ├── movies/            # MovieCard, MovieFilters, TrailerModal
-    │   │   └── booking/           # SeatGrid, SeatLegend, BookingSummary, TicketCard
-    │   ├── context/               # AuthContext, CityContext, ThemeContext, BookingContext
-    │   ├── hooks/                 # useDebounce, useCountdown
-    │   ├── layouts/               # MainLayout
-    │   ├── pages/                 # Home, Movies, MovieDetails, SeatSelection, Checkout, Confirmation, MyBookings, Profile, Offers, AdminDashboard, Login, Register, NotFound
-    │   ├── services/              # api.ts (Centralized Axios client shared with React Native)
-    │   └── types/                 # TypeScript interfaces
-```
+
+The backend can centralize authentication, seat availability, pricing, reservations, and booking rules so the web and mobile clients follow the same business logic.
+
+> **Implementation note:** The React Native features described above are intended capabilities unless the corresponding mobile screens and workflows already exist in the repository. The web development commands in this README do not automatically start a separate React Native application.
 
 ---
 
-## 🗄️ Relational Database Design (Prisma)
+## 🔄 Booking Workflow
 
-```
-[User] ────< [Booking] >──── [BookingSeat] >──── [Seat]
-  │               │                                │
-  │               ├──── [Payment]                  │
-  │               │                                │
-  │               └──── [Coupon]                   │
-  │                                                │
-[Review] >─── [Movie] ───< [Show] >─── [ShowSeat] ─┘
-                 │            │
-            [MovieGenre]   [Screen]
-                 │            │
-              [Genre]     [Theatre] >─── [City]
+The intended booking workflow connects the main customer-facing features.
+
+```mermaid
+flowchart TD
+    A[Discover Movies] --> B[Choose a Movie]
+    B --> C[Select City, Theatre and Show]
+    C --> D[Explore Available Seats]
+    D --> E[Select Seats]
+    E --> F[Create Temporary Hold]
+    F --> G{Hold Valid?}
+    G -- No --> D
+    G -- Yes --> H[Review Order]
+    H --> I[Simulated Payment]
+    I --> J{Payment Successful?}
+    J -- No --> K[Handle Failure]
+    J -- Yes --> L[Confirm Booking]
+    L --> M[Generate QR Ticket]
+    M --> N[Manage Bookings]
 ```
 
-Key models and relationships:
-- **`User`**: Account details, encrypted `passwordHash`, `role` (`USER` or `ADMIN`), active status.
-- **`City`**: Supported cinema hubs with slug indices.
-- **`Theatre` & `Screen`**: Multiplex properties with audi types (`IMAX 3D`, `Dolby Cinema`, `4DX`).
-- **`Seat` & `ShowSeat`**: Base seat layout mapped to time-slot inventory with real-time status (`AVAILABLE`, `LOCKED`, `BOOKED`), lock expiration timestamps, and user associations.
-- **`Booking` & `BookingSeat`**: Confirmed reservations with unique `bookingReference` (e.g. `CP-2026-98124`), fee breakdowns, and generated base64 QR code tickets.
-- **`Payment`**: Transaction records supporting mock statuses (`SUCCESSFUL`, `FAILED`, `REFUNDED`).
-- **`Coupon`**: Promotional discount rules (percentage or flat amount with min spend and maximum savings cap).
+### Handling simultaneous booking attempts
+
+If multiple customers attempt to reserve the same seat, the backend must resolve the conflict using server-side checks, database constraints, and appropriate transaction handling.
+
+Temporary holds help prevent other customers from claiming a seat while a reservation is being completed. Expired holds should release the seat for future customers.
+
+The exact guarantees depend on the database transaction strategy and the implemented locking and expiration logic.
 
 ---
 
-## 🚀 Quick Start & Installation
+## 🧰 Technology Stack
+
+| Category | Technologies |
+|---|---|
+| Web frontend | React 18, Vite |
+| Mobile development | React Native |
+| Programming languages | TypeScript, JavaScript |
+| UI styling | Tailwind CSS |
+| Web routing | React Router |
+| State management | React Context |
+| HTTP communication | Axios |
+| Backend | Node.js, Express.js |
+| Validation | Zod |
+| Database | PostgreSQL |
+| ORM | Prisma |
+| Authentication | JWT, bcryptjs |
+| Digital tickets | QRCode |
+| Testing | Vitest, Supertest |
+| Deployment | Render |
+
+### Why these technologies?
+
+- **React:** Component-based development for the web interface.
+- **React Native:** A foundation for native mobile application development using React concepts.
+- **TypeScript:** Static type checking across supported TypeScript code.
+- **Express.js:** REST API development and server-side request handling.
+- **PostgreSQL:** Relational data storage and transactional operations.
+- **Prisma:** Typed database access and schema management.
+- **Vitest and Supertest:** Automated testing for server-side behavior and HTTP endpoints.
+
+---
+
+## 🏗️ System Architecture
+
+ShowPulse follows a client-server architecture that separates user interfaces from backend business logic.
+
+```mermaid
+flowchart TD
+    U[Users and Administrators]
+
+    U --> W[React Web Client]
+    U --> M[React Native Mobile Client]
+
+    W --> API[Express REST API]
+    M --> API
+
+    API --> V[Zod Validation]
+    V --> AUTH[Authentication and Authorization]
+    AUTH --> S[Controllers and Services]
+
+    S --> P[Prisma ORM]
+    S --> Q[QR Ticket Generation]
+
+    P --> DB[(PostgreSQL)]
+```
+
+### Architecture responsibilities
+
+| Component | Responsibility |
+|---|---|
+| React web client | Browser-based discovery and booking experience |
+| React Native client | Native mobile experience |
+| Express API | Request handling and business workflows |
+| Validation layer | Validate incoming request data |
+| Authentication middleware | Verify identity and permissions |
+| Service and controller layers | Implement application workflows |
+| Prisma ORM | Query and update relational data |
+| PostgreSQL | Store users, shows, seats, bookings, and related records |
+| QR utilities | Generate digital ticket data |
+
+The API-first design allows future clients to reuse backend capabilities without duplicating core booking logic.
+
+---
+
+## 🗄️ Database Design
+
+The application uses a relational data model for its cinema-booking domain.
+
+```mermaid
+erDiagram
+    USER ||--o{ BOOKING : places
+    BOOKING ||--o{ BOOKING_SEAT : contains
+    SEAT ||--o{ BOOKING_SEAT : references
+    MOVIE ||--o{ SHOW : scheduled_for
+    THEATRE ||--o{ SCREEN : contains
+    SCREEN ||--o{ SEAT : has
+    SHOW ||--o{ SHOW_SEAT : manages
+    SEAT ||--o{ SHOW_SEAT : allocated_to
+    BOOKING ||--o{ PAYMENT : records
+    CITY ||--o{ THEATRE : contains
+    MOVIE ||--o{ REVIEW : receives
+    USER ||--o{ REVIEW : writes
+```
+
+### Main entities
+
+- **User:** Customer details, credentials, and account role.
+- **City:** Supported cinema locations.
+- **Movie:** Titles, descriptions, genres, and metadata.
+- **Theatre:** Cinema information and location.
+- **Screen:** Auditorium configuration.
+- **Seat:** Physical seat identifiers and categories.
+- **Show:** Scheduled movie screenings.
+- **ShowSeat:** Show-specific seat status and availability.
+- **Booking:** Reservation records and booking references.
+- **BookingSeat:** Seats associated with bookings.
+- **Payment:** Simulated payment records and transaction status.
+- **Coupon:** Discount rules and promotional codes.
+- **Review:** User ratings and feedback.
+
+The exact entity relationships and constraints should be confirmed against `server/prisma/schema.prisma`.
+
+---
+
+## 💻 Getting Started
 
 ### Prerequisites
-- **Node.js**: v18+ (tested on Node v22)
-- **PostgreSQL**: PostgreSQL 14+ running on port `5432` (or via Docker)
 
-### 1. Clone & Configure Environment
+Install the following tools:
+
+- [Node.js](https://nodejs.org/)
+- npm
+- [Git](https://git-scm.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+
+For React Native development, you may also need:
+
+- [React Native documentation](https://reactnative.dev/docs/getting-started)
+- [Android Studio](https://developer.android.com/studio) for Android development.
+- Xcode for native iOS builds on macOS.
+
+### 1. Clone the repository
+
 ```bash
-cd ticket-booking-app
+git clone https://github.com/Prasenjit-Sahoo18/ShowPulse.git
+cd ShowPulse
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Copy the provided environment template to the backend configuration file.
+
+**Windows PowerShell**
+
+```powershell
+Copy-Item .env.example server/.env
+```
+
+**macOS / Linux / Git Bash**
+
+```bash
 cp .env.example server/.env
 ```
 
-Ensure `server/.env` contains your PostgreSQL credentials:
-```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/cinepulse?schema=public"
+Update the values in `server/.env` before starting the application.
+
+### 4. Create the database
+
+Create a PostgreSQL database and configure its connection string.
+
+Then run the documented database setup command:
+
+```bash
+npm run db:push
+```
+
+Populate the database with sample records:
+
+```bash
+npm run seed
+```
+
+Use only the appropriate seed data and database when running these commands.
+
+### 5. Start the web application and backend
+
+```bash
+npm run dev
+```
+
+The documented local development URLs are:
+
+| Service | URL |
+|---|---|
+| Web frontend | http://localhost:5173 |
+| Backend API | http://localhost:5000 |
+| API health check | http://localhost:5000/api/health |
+
+Run each service separately if needed:
+
+```bash
+npm run dev:server
+```
+
+```bash
+npm run dev:client
+```
+
+### 6. Build the project
+
+```bash
+npm run build
+```
+
+Start the compiled server:
+
+```bash
+npm start
+```
+
+These commands refer to the existing web/backend workspace. If the React Native client lives in a separate directory or repository, install its dependencies and follow its own development scripts.
+
+---
+
+## 🔐 Environment Variables
+
+Configure the following variables in `server/.env`, matching the actual names and requirements in the repository's environment template.
+
+| Variable | Purpose |
+|---|---|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `PORT` | Backend port |
+| `NODE_ENV` | Runtime environment |
+| `CLIENT_URL` | Web frontend origin |
+| `JWT_SECRET` | JWT signing secret |
+| `JWT_EXPIRES_IN` | Token expiration duration |
+| `MOCK_PAYMENT_ENABLED` | Enables simulated payments |
+| `CONVENIENCE_FEE_PERCENT` | Ticket convenience fee |
+| `DEFAULT_CITY` | Default cinema city |
+
+Example:
+
+```dotenv
+DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/cinepulse?schema=public"
+
 PORT=5000
 NODE_ENV=development
 CLIENT_URL="http://localhost:5173"
-JWT_SECRET="cinepulse_ultra_secure_jwt_secret_key_2026_production"
+
+JWT_SECRET="REPLACE_WITH_A_LONG_RANDOM_SECRET"
 JWT_EXPIRES_IN="7d"
+
 MOCK_PAYMENT_ENABLED=true
 CONVENIENCE_FEE_PERCENT=8
 DEFAULT_CITY="Bhubaneswar"
 ```
 
-### 2. Install Dependencies
-Install packages for both the server and the web client:
-```bash
-# Server
-cd server
-npm install
+**Important:** This is an example configuration, not a verified copy of every variable in the repository. Preserve the exact variable names expected by the application and replace the example credentials.
 
-# Client
-cd ../client
-npm install
-```
+For a React Native client, configure the API base URL using the mobile application's own environment configuration. An Android emulator generally cannot access the host machine through `localhost`; use the appropriate emulator host address or a reachable development server address.
 
-### 3. Database Migration & Seed Data
-Synchronize the PostgreSQL schema and populate the rich catalog:
-```bash
-cd server
-npx prisma db push
-npm run prisma:seed
-```
-
-> **Demo Seed Highlights**:
-> - **16 Movies** (with high-res posters, backdrops, trailers, cast, and genres)
-> - **8 Cities** (Bhubaneswar, Mumbai, Delhi-NCR, Bengaluru, Hyderabad, Chennai, Kolkata, Pune)
-> - **10 Multiplex Theatres** with screens and hundreds of tiered seats
-> - **120 Scheduled Showtimes** with live seat inventories
-> - **5 Active Promotional Coupons** (*WELCOME50*, *MOVIE100*, *WEEKEND20*, *CINEPULSE50*, *VIPRECLINER*)
-> - **Demo Admin**: `admin@example.com` / `Admin@123`
-> - **Demo User**: `rahul.sharma@example.com` / `User@123`
-
-### 4. Run Development Servers
-From the root workspace, launch both backend and frontend concurrently:
-```bash
-npm run dev
-```
-Or run individually:
-- **Backend API**: `cd server && npm run dev` → `http://localhost:5000`
-- **Frontend Web**: `cd client && npm run dev` → `http://localhost:5173`
-
-### 5. Deploy to Render
-This repository includes `render.yaml` for a single Render Node web service. It serves the built React client and Express API together, which keeps the frontend `/api` requests on the same origin. The Render build explicitly installs development dependencies because TypeScript, Prisma CLI, and Node type declarations are required during compilation.
-
-1. Deploy this repository as a **Blueprint** so Render reads `render.yaml`. The Blueprint creates the web service and PostgreSQL database together.
-2. Set a strong `JWT_SECRET` in the web service environment. `DATABASE_URL` is wired automatically from the provisioned database.
-3. After the first deploy, run `npm run seed` from the project shell or run `npm run prisma:seed -w server` against the Render database to load the movies, theatres, shows, and coupons.
-
-The health check is available at `/api/health`. Do not deploy this app as a Render Static Site because that does not run the Express API.
+Never commit secrets, production database credentials, or real customer information.
 
 ---
 
-## 🧪 Automated Testing
+## 📜 Available Scripts
 
-CinePulse includes a full automated test suite covering all critical business logic:
-- User registration & duplicate email rejection
-- Password hashing & JWT issuance
-- Movie listing, city filtering, and pagination
-- Coupon validation, minimum amounts, and discounts
-- Auditorium seat retrieval and 10-minute hold locking
-- **Concurrent booking prevention & race condition rejection (ACID transactions)**
-- User booking history verification
+The root workspace documents the following commands:
 
-To run tests:
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the frontend and backend in development |
+| `npm run dev:server` | Start the backend |
+| `npm run dev:client` | Start the web frontend |
+| `npm run build` | Build the frontend and backend |
+| `npm run build:server` | Build the backend |
+| `npm run build:client` | Build the web frontend |
+| `npm start` | Start the compiled server |
+| `npm run test:server` | Run backend tests |
+| `npm run seed` | Populate sample database data |
+| `npm run db:push` | Synchronize the Prisma schema |
+
+Check the respective `package.json` files for the exact commands supported by each workspace.
+
+---
+
+## 📡 API Overview
+
+The Express backend provides endpoints for the application's core workflows.
+
+All endpoints below use `/api` as the documented API prefix.
+
+### Authentication
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/auth/register` | Register a user |
+| POST | `/auth/login` | Authenticate a user |
+| GET | `/auth/me` | Retrieve the current user |
+| PUT | `/auth/profile` | Update profile information |
+| PUT | `/auth/change-password` | Change password |
+
+### Movies and theatres
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/cities` | List supported cities |
+| GET | `/movies` | Browse and filter movies |
+| GET | `/movies/:id` | Retrieve movie details |
+| GET | `/movies/:id/reviews` | Retrieve movie reviews |
+| POST | `/movies/:id/reviews` | Submit a review |
+| GET | `/theatres` | Browse theatres |
+| GET | `/theatres/:id` | Retrieve theatre information |
+| GET | `/shows` | Browse showtimes |
+| GET | `/shows/:id/seats` | Retrieve seat availability |
+
+### Booking and payment
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/shows/:id/lock-seats` | Create a temporary seat hold |
+| GET | `/coupons/active` | List active coupons |
+| POST | `/coupons/validate` | Validate a coupon |
+| POST | `/bookings` | Create a booking |
+| GET | `/bookings/my-bookings` | View booking history |
+| GET | `/bookings/:id` | Retrieve booking details |
+| POST | `/bookings/:id/cancel` | Request cancellation |
+| POST | `/payments/create` | Create a simulated payment intent |
+| POST | `/payments/verify` | Verify a simulated payment result |
+
+### Administration
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/admin/analytics` | Retrieve dashboard metrics |
+| POST | `/admin/movies` | Add a movie |
+| PUT | `/admin/movies/:id` | Update a movie |
+| DELETE | `/admin/movies/:id` | Delete a movie |
+| POST | `/admin/theatres` | Create a theatre |
+| POST | `/admin/shows` | Schedule a screening |
+| GET | `/admin/bookings` | Search bookings |
+| GET | `/admin/users` | Manage customer records |
+
+Protected endpoints require the appropriate authentication and authorization.
+
+> This is a high-level API overview based on the documented application workflows. Verify route paths, HTTP methods, and request/response formats against the actual server routes before using this as a formal API specification.
+
+---
+
+## 🔒 Security and Reliability
+
+ShowPulse incorporates several backend security and reliability concepts.
+
+| Area | Approach |
+|---|---|
+| Authentication | JWT |
+| Password storage | bcryptjs |
+| Request validation | Zod |
+| Authorization | Role-based access control |
+| Data persistence | PostgreSQL |
+| Database access | Prisma ORM |
+| Booking consistency | Database transactions and seat-state validation |
+| Payment behavior | Simulated payment processing |
+| Automated verification | API integration tests |
+
+### Important reliability considerations
+
+- Validate all booking requests on the server.
+- Reject conflicting reservations.
+- Expire temporary holds correctly.
+- Use database constraints and suitable transaction isolation.
+- Ensure payment simulation results cannot be manipulated through untrusted client requests.
+- Restrict administrative routes to authorized users.
+- Avoid exposing secrets or sensitive data in API responses.
+
+Payment processing is simulated; the application should not be used to process real financial transactions without a properly integrated payment provider and appropriate security controls.
+
+---
+
+## 🧪 Testing
+
+The project documents backend tests using Vitest and Supertest.
+
+Run the server test suite with:
+
+```bash
+npm run test:server
+```
+
+Alternatively, run the server workspace's own test command:
+
 ```bash
 cd server
 npm test
 ```
 
+The documented test areas include:
+
+- Registration and authentication.
+- Password hashing and JWT issuance.
+- Movie discovery and filtering.
+- Coupon validation.
+- Seat availability and temporary holds.
+- Booking conflicts.
+- Customer booking history.
+
+For a stronger production-ready test suite, consider adding:
+
+- Concurrent seat-booking tests.
+- Expired reservation tests.
+- Payment failure and recovery tests.
+- Cancellation and seat-release tests.
+- Unauthorized admin access tests.
+- Mobile API integration tests.
+- End-to-end web and mobile booking tests.
+
 ---
 
-## 📱 React Native Mobile Integration Guide
+## 🌍 Deployment
 
-> [!IMPORTANT]
-> The CinePulse backend is 100% decoupled from the web frontend. All endpoints exchange pure JSON without browser-specific dependencies. The exact same REST APIs can be consumed directly by a React Native iOS and Android application.
+The repository documents a Render deployment configuration.
 
-### 1. Base API URL Configuration
-In your React Native project (e.g. `apps/mobile/src/services/api.ts`):
-```typescript
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
+### Deploying the web application
 
-// In local mobile development:
-// Android Emulator uses 10.0.2.2 to access host machine localhost
-// iOS Simulator uses localhost
-const BASE_URL = Platform.OS === 'android' 
-  ? 'http://10.0.2.2:5000/api' 
-  : 'http://localhost:5000/api';
+1. Push the project to GitHub.
+2. Open [Render](https://render.com/).
+3. Create a Blueprint deployment from the repository.
+4. Review the `render.yaml` configuration.
+5. Configure the PostgreSQL connection and environment variables.
+6. Deploy the application.
+7. Check the service logs and health endpoint.
+8. Test the booking workflow against the deployed environment.
 
-export const mobileApiClient = axios.create({
-  baseURL: BASE_URL,
-  headers: { 'Content-Type': 'application/json' },
-  timeout: 10000,
-});
+**Web demo:** [CinePulse on Render](https://cinepulse-7ajb.onrender.com)
 
-// Attach JWT from AsyncStorage
-mobileApiClient.interceptors.request.use(async (config) => {
-  const token = await AsyncStorage.getItem('cinepulse_token');
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+For a mobile application, use the appropriate React Native build and distribution workflow. A hosted web frontend does not automatically create an Android APK or iOS application.
+
+---
+
+## 📂 Project Structure
+
+The following is a conceptual overview of the documented web/backend workspace. Add the actual mobile directory if React Native has a separate application folder.
+
+```text
+ShowPulse/
+├── client/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── hooks/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   └── types/
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── server/
+│   ├── prisma/
+│   │   ├── schema.prisma
+│   │   └── seed.ts
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── middleware/
+│   │   ├── routes/
+│   │   ├── utils/
+│   │   ├── app.ts
+│   │   └── server.ts
+│   ├── tests/
+│   └── package.json
+│
+├── .env.example
+├── render.yaml
+├── package.json
+├── package-lock.json
+└── README.md
 ```
 
-### 2. Mobile Authentication Flow
-1. **Register**: `POST /api/auth/register` with `{ name, email, phone, password, confirmPassword }`.
-2. **Login**: `POST /api/auth/login` with `{ email, password }`.
-3. **Persist Token**: Store `res.data.data.token` via `AsyncStorage.setItem('cinepulse_token', token)`.
-4. **Current Profile**: `GET /api/auth/me` with `Authorization: Bearer <token>`.
+### Suggested structure for a separate React Native client
 
-### 3. Movie Discovery & City Filtering
-- Fetch cities: `GET /api/cities`
-- Fetch movies in city: `GET /api/movies?city=bhubaneswar&status=nowShowing`
-- Search movies: `GET /api/movies?search=dune`
-- Movie details: `GET /api/movies/:id`
+If your mobile app is maintained in the same repository, it can be documented with a structure such as:
 
-### 4. Showtime & Seat Selection Flow
-1. **Fetch Shows for Movie**:
-   `GET /api/shows?movieId=<movieId>&city=<city>&date=2026-09-08`
-2. **Fetch Auditorium Seat Matrix**:
-   `GET /api/shows/<showId>/seats`
-   Returns rows (`A`, `B`, `C`), seat numbers, categories (`RECLINER`, `PREMIUM`), prices, and status (`AVAILABLE`, `LOCKED`, `BOOKED`).
-3. **Lock Seats on Hold**:
-   ```typescript
-   POST /api/shows/<showId>/lock-seats
-   Headers: { Authorization: 'Bearer <token>' }
-   Body: { seatIds: ['seat-uuid-1', 'seat-uuid-2'] }
-   ```
-   Returns `{ lockedSeats: [...], lockExpiresAt: "2026-09-08T02:17:00Z" }`.
+```text
+mobile/
+├── src/
+│   ├── components/
+│   ├── screens/
+│   ├── navigation/
+│   ├── services/
+│   ├── hooks/
+│   └── types/
+├── assets/
+├── App.tsx
+├── package.json
+└── app.json
+```
 
-### 5. Coupon & Payment Flow
-1. **Validate Coupon**:
-   ```typescript
-   POST /api/coupons/validate
-   Body: { code: 'WELCOME50', amount: 800 }
-   ```
-2. **Confirm Booking & Payment**:
-   ```typescript
-   POST /api/bookings
-   Headers: { Authorization: 'Bearer <token>' }
-   Body: {
-     showId: '<showId>',
-     seatIds: ['seat-uuid-1', 'seat-uuid-2'],
-     paymentMethod: 'UPI',
-     couponCode: 'WELCOME50'
-   }
-   ```
-   **Response Schema**:
-   ```json
-   {
-     "success": true,
-     "message": "🎉 Booking confirmed successfully!",
-     "data": {
-       "id": "bkg-uuid-123",
-       "bookingReference": "CP-2026-560175",
-       "totalTickets": 2,
-       "ticketPrice": 900.0,
-       "convenienceFee": 72.0,
-       "discount": 150.0,
-       "totalAmount": 822.0,
-       "status": "CONFIRMED",
-       "qrCodeData": "data:image/png;base64,iVBORw0KGgo...",
-       "show": {
-         "movie": { "title": "Dune: Part Two" },
-         "theatre": { "name": "CinePulse IMAX" },
-         "date": "2026-09-08T00:00:00.000Z",
-         "startTime": "07:30 PM"
-       },
-       "payment": {
-         "transactionId": "TXN-1725741436-12345",
-         "paymentMethod": "UPI",
-         "status": "SUCCESSFUL"
-       }
-     }
-   }
-   ```
-3. **Display Ticket in Mobile App**:
-   Render `data.qrCodeData` using React Native's `<Image source={{ uri: qrCodeData }} />`.
+This mobile structure is a suggestion, not a claim that these files already exist.
 
 ---
 
-## 📡 REST API Reference
+## 🔮 Future Roadmap
 
-| Endpoint | Method | Auth | Description |
-| :--- | :---: | :---: | :--- |
-| `/api/auth/register` | `POST` | Public | Register new customer account |
-| `/api/auth/login` | `POST` | Public | Authenticate user and return JWT session token |
-| `/api/auth/me` | `GET` | User | Get authenticated customer profile |
-| `/api/auth/profile` | `PUT` | User | Update name and phone number |
-| `/api/auth/change-password`| `PUT` | User | Change user password |
-| `/api/cities` | `GET` | Public | List all supported entertainment cities |
-| `/api/movies` | `GET` | Public | List movies with search, filters, and pagination |
-| `/api/movies/:id` | `GET` | Public | Get movie details, cast, formats, and reviews |
-| `/api/movies/:id/reviews` | `GET` | Public | Get reviews for a specific movie |
-| `/api/movies/:id/reviews` | `POST` | User | Submit rating and review |
-| `/api/theatres` | `GET` | Public | List theatres by city and search query |
-| `/api/theatres/:id` | `GET` | Public | Get single theatre and screens |
-| `/api/shows` | `GET` | Public | Get shows filtered by movie, theatre, city, date |
-| `/api/shows/:id` | `GET` | Public | Get show details |
-| `/api/shows/:id/seats` | `GET` | Public | Get auditorium seat layout and availability |
-| `/api/shows/:id/lock-seats`| `POST` | User | Hold seats for 10 minutes in ACID transaction |
-| `/api/coupons/active` | `GET` | Public | List active promotional coupons |
-| `/api/coupons/validate` | `POST` | Public | Validate coupon against order subtotal |
-| `/api/bookings` | `POST` | User | Confirm booking and process payment atomically |
-| `/api/bookings/my-bookings`| `GET` | User | List authenticated user's bookings |
-| `/api/bookings/:id` | `GET` | User | Get single booking with QR entry pass |
-| `/api/bookings/:id/cancel` | `POST` | User | Cancel booking and refund seats |
-| `/api/payments/create` | `POST` | User | Create payment order intent |
-| `/api/payments/verify` | `POST` | User | Verify payment completion |
-| `/api/admin/analytics` | `GET` | Admin | Aggregate dashboard KPIs and revenue charts |
-| `/api/admin/movies` | `POST` | Admin | Create new movie in catalogue |
-| `/api/admin/movies/:id` | `PUT` | Admin | Update movie details |
-| `/api/admin/movies/:id` | `DELETE`| Admin | Delete movie |
-| `/api/admin/theatres` | `POST` | Admin | Create theatre property |
-| `/api/admin/theatres/:id` | `PUT` | Admin | Update theatre |
-| `/api/admin/theatres/:id` | `DELETE`| Admin | Delete theatre |
-| `/api/admin/shows` | `POST` | Admin | Schedule show and generate seat inventory |
-| `/api/admin/shows/:id` | `DELETE`| Admin | Cancel show |
-| `/api/admin/bookings` | `GET` | Admin | Search and audit all customer bookings |
-| `/api/admin/bookings/:id/refund` | `POST` | Admin | Refund and cancel booking |
-| `/api/admin/users` | `GET` | Admin | List all registered users |
-| `/api/admin/users/:id/toggle-status`| `PUT` | Admin | Enable or disable user account |
+Potential improvements for ShowPulse include:
+
+- [ ] Complete and expand the React Native Android and iOS experiences.
+- [ ] Share API types and validation contracts across web and mobile clients.
+- [ ] Add push notifications for booking confirmations and reminders.
+- [ ] Integrate a real payment provider securely.
+- [ ] Add email and SMS ticket confirmations.
+- [ ] Expand automated tests for reservation concurrency.
+- [ ] Introduce continuous integration for builds and tests.
+- [ ] Improve accessibility and mobile performance.
+- [ ] Add advanced theatre analytics and operational reports.
+- [ ] Improve monitoring, structured logging, and error reporting.
+
+These items represent potential development directions rather than confirmed existing functionality.
 
 ---
 
-## 🔒 Security Best Practices
-- **Password Hashing**: Passwords are encrypted using `bcryptjs` with salt rounds.
-- **JWT Authorization**: Session tokens signed with server secrets and verified on protected endpoints.
-- **Role-Based Access Control**: Strict `requireAdmin` middleware guard on `/api/admin/*`.
-- **Concurrency Protection**: Interactive transactions (`prisma.$transaction`) prevent double-booking race conditions during high-volume demand.
-- **No Real Card Storage**: Mock payment tokens prevent financial data liabilities.
-- **Sanitized Inputs**: Validated with `zod` schemas.
+## 🤝 Contributing
+
+Contributions, suggestions, and bug reports are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+
+   ```bash
+   git checkout -b feat/your-feature
+   ```
+
+3. Implement your changes and add appropriate tests.
+4. Run the available test suite and production build.
+5. Commit your changes.
+
+   ```bash
+   git commit -m "feat: describe your change"
+   ```
+
+6. Push your branch and open a pull request.
+
+Please do not commit credentials, environment files, or sensitive customer information.
 
 ---
 
 ## 📄 License
-This project is open-source under the [MIT License](LICENSE).
+
+Refer to the repository's `LICENSE` file for the applicable license and terms of use.
+
+---
+
+## 👨‍💻 Connect
+
+**Prasenjit Sahoo**
+
+- GitHub: [@Prasenjit-Sahoo18](https://github.com/Prasenjit-Sahoo18)
+- LinkedIn: [Prasenjit Sahoo](https://www.linkedin.com/in/prasenjit-sahoo18)
+
+If you find ShowPulse interesting, consider starring the repository ⭐ and sharing feedback or suggestions.
+
+---
+
+<p align="center">
+  <strong>ShowPulse — From the first search to the final scene. 🎬</strong>
+</p>
