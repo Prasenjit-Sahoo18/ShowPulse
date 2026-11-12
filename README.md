@@ -11,7 +11,7 @@ https://cinepulse-1l25.onrender.com
 
 <p align="center">
   <a href="https://github.com/Prasenjit-Sahoo18/ShowPulse">GitHub Repository</a> •
-  <a href="https://cinepulse-7ajb.onrender.com">Live Demo</a> •
+  <a href="https://cinepulse-1l25.onrender.com">Live Demo</a> •
   <a href="#-getting-started">Get Started</a>
 </p>
 
